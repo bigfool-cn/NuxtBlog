@@ -1,0 +1,30 @@
+{
+  "name": "NuxtBlog",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@tinymce/tinymce-vue": "^3.2.6",
+    "axios": "^0.21.0",
+    "core-js": "^3.6.5",
+    "element-ui": "^2.13.2",
+    "formattor": "0.0.2",
+    "nuxt": "^2.14.6",
+    "tinymce": "^5.6.1",
+    "vue-codemirror": "^4.0.6",
+    "vue-json-editor": "^1.4.3",
+    "vuex": "^3.6.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/color-mode": "^2.0.2",
+    "babel-plugin-component": "^1.1.1",
+    "node-sass": "^5.0.0",
+    "sass-loader": "^10.1.0",
+    "svg-sprite-loader": "^5.1.1"
+  }
+}
