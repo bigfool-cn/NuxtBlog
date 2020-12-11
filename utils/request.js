@@ -1,19 +1,17 @@
 import axios from 'axios'
-
+import Vue from 'vue'
 // create an axios instance
 const service = axios.create({
-  baseURL: process.env.BASE_API, // url = base url + request url
+  baseURL: 'http://127.0.0.1:3003', // url = base url + request url
   timeout: 5000 // request timeout
 })
 
 // request interceptor
 service.interceptors.request.use(
   config => {
-   
-    if (process.client && /^\/admin\//.test(url)) {
-      config.headers.Authorization = 'Bearer ' + localStorage.getItem('_token_')
+    if (process.client && /^\/admin\//.test(config.url)) {
+      config.headers['Authorization'] = $nuxt.context.$cookies.get('_token_')
     }
-   
     return config
   },
   error => {

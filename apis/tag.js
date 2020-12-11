@@ -1,8 +1,8 @@
-import $axios from '~/utils/request'
+import request from '~/utils/request'
 
 export function tagList (params) {
-  return $axios.$get(
-    '/tags',
+  return request({
+    url:'/tags',
     params
-  )
+  })
 }

@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'
 import Tinymce from '~/components/tinymce/index.vue'
 import { tagList, updateArticle, addArticle, getArticle } from '~/apis/admin'
 export default {
@@ -103,7 +104,7 @@ export default {
     if (this.articleId > 0) {
       getArticle(this.articleId).then((response) => {
         if (response.code !== 200) {
-          return this.$toast.error(response.message)
+          return Message.error(response.message)
         }
         this.form = {
           article_title: response.data.article_title,
@@ -116,12 +117,12 @@ export default {
         }
       })
     }
-    // tagList().then((response) => {
-    //   if (response.code !== 200) {
-    //     return this.$toast.error(response.message)
-    //   }
-    //   this.tags = response.data
-    // })
+    tagList().then((response) => {
+      if (response.code !== 200) {
+        return Message.error(response.message)
+      }
+      this.tags = response.data
+    })
   },
   methods: {
     reset () {
@@ -139,20 +140,19 @@ export default {
           if (this.articleId > 0) {
             updateArticle(this.articleId, this.form).then((response) => {
               if (response.code !== 200) {
-                return this.$toast.error(response.message)
+                return Message.error(response.message)
               }
-              this.$toast.success(response.message)
+              Message.success(response.message)
             })
           } else {
             addArticle(this.form).then((response) => {
               if (response.code !== 200) {
-                return this.$toast.error(response.message)
+                return Message.error(response.message)
               }
-              this.$toast.success(response.message, {
-                onComplete: () => {
-                  this.$router.push({ path: '/admin/article' })
-                }
-              })
+              Message.success(response.message)
+              setTimeout(() => {
+                this.$router.push({ path: '/admin/article' })
+              },1500)
             })
           }
         }
@@ -166,4 +166,24 @@ export default {
   button {
     width: 100px;
   }
+ 
+  /* ::v-deep .tox {
+    color: var(--color);
+  }
+  ::v-deep .tox-tinymce,
+  ::v-deep .tox:not([dir=rtl]) .tox-toolbar__group:not(:last-of-type) {
+    border-color: var(--border-color);
+  }
+
+  ::v-deep .tox .tox-toolbar,
+  ::v-deep .tox .tox-toolbar__overflow,
+  ::v-deep .tox .tox-toolbar__primary,
+  ::v-deep .tox .tox-edit-area__iframe {
+    background-color: var(--bg);
+  }
+
+  ::v-deep .tox .tox-tbtn:hover {
+    background-color: var(--bg-secondary);
+  } */
+
 </style>

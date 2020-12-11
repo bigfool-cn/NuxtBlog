@@ -128,8 +128,8 @@ export default{
     }
   },
   mounted () {
-    // this.getArticleList()
-    // this.getTagList()
+    this.getArticleList()
+    this.getTagList()
   },
   methods: {
     getArticleList () {

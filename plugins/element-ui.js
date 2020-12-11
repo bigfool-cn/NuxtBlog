@@ -11,7 +11,8 @@ import {
   Select,
   Option,
   Dialog,
-  Pagination
+  Pagination,
+  Message
 } from 'element-ui'
 
 const components = [
@@ -24,7 +25,8 @@ const components = [
   Select,
   Option,
   Dialog,
-  Pagination
+  Pagination,
+  Message
 ];
 
 const Element = {

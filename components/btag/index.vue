@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!this.$store.state.setting.isMobile" class="blog-tag">
+  <div v-if="!this.$store.state.settings.isMobile" class="blog-tag">
     <span v-for="(tag,key) in tags" :key="key" :title="tag.tag_name" @click="handleClick(tag.tag_id)">
       <img :src="tag.tag_icon">
     </span>
@@ -7,18 +7,13 @@
 </template>
 
 <script>
-import { tagList } from '~/apis/tag'
 export default {
   name: 'BTag',
-  data () {
-    return {
-      tags: []
+  props: {
+    tags: {
+      type: Array,
+      required: true
     }
-  },
-  created () {
-    tagList().then((res) => {
-      this.tags = res.data
-    })
   },
   methods: {
     handleClick (tagId) {
@@ -28,26 +23,29 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>    
   .blog-tag {
     position: fixed;
-    bottom: 150px;
+    bottom: 180px;
     margin-left: 1010px;
     border-radius: 25px;
-  }
-  .blog-tag span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    margin-bottom: 10px;
-    border-radius: 50%;
-    background: #fff;
-    cursor: pointer;
-  }
-  .blog-tag span img {
-    width: 27px;
-    height: 25px;
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      margin-bottom: 10px;
+      border-radius: 50%;
+      background-color: var(--bg-secondary);
+      cursor: pointer;
+      img {
+        width: 27px;
+        height: 25px;
+      }
+      &:hover {
+        background-color: var(--border-active-color);
+      }
+    }
   }
 </style>

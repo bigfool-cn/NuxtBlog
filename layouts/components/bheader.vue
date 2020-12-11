@@ -3,7 +3,7 @@
     <div class="pencil">
       <span class="barrel" @click="toIndex">
         <div class="header">
-          <span>好记性不如烂笔头</span>
+          <span>代码敲得再六又怎么样...</span>
         </div>
       </span>
       <span class="taper" title="在线工具" @click="toTools" />
@@ -80,7 +80,7 @@ export default {
   font-style: italic;
   color: var(--color);
   font-size: 1.25em;
-  line-height: 0.65em;
+  line-height: 0.6em;
   padding-left: 2em;
 }
 

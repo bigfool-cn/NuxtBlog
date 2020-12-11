@@ -92,6 +92,7 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'
 import { tagList, updateTag, addTag, delTag } from '~/apis/admin'
 export default {
   name: 'AdminTag',
@@ -132,7 +133,7 @@ export default {
     }
   },
   mounted () {
-    //this.getTagList()
+    this.getTagList()
   },
   methods: {
     getTagList () {
@@ -166,7 +167,7 @@ export default {
     handleDelete (row) {
       const ids = row.tag_id ? [row.tag_id] : this.selectIds
       delTag(ids).then((response) => {
-        this.$toast.error(response.message)
+        Message.error(response.message)
         this.getTagList()
       })
     },
@@ -186,11 +187,11 @@ export default {
       const file = event.target.files.item(0)
 
       if (!file) {
-        return this.$toast.error('未选择文件')
+        return Message.error('未选择文件')
       }
 
       if (file.size > 1024 * 1024) {
-        return this.$toast.error('图标不能超多1MB')
+        return Message.error('图标不能超多1MB')
       }
 
       const fr = new FileReader()
@@ -206,24 +207,24 @@ export default {
     submitForm () {
       this.$refs.form.validate((valid) => {
         if (!this.form.tag_icon) {
-          return this.$toast.error('请上传图标')
+          return Message.error('请上传图标')
         }
         if (valid) {
           if (this.form.tag_id) {
             updateTag(this.form.tag_id, this.form).then((response) => {
               if (response.code !== 200) {
-                return this.$toast.error(response.message)
+                return Message.error(response.message)
               }
-              this.$toast.success(response.message)
+              Message.success(response.message)
               this.dialogVisible = false
               this.getTagList()
             })
           } else {
             addTag(this.form).then((response) => {
               if (response.code !== 200) {
-                return this.$toast.error(response.message)
+                return Message.error(response.message)
               }
-              this.$toast.success(response.message)
+              Message.success(response.message)
               this.dialogVisible = false
               this.getTagList()
             })

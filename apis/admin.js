@@ -1,63 +1,72 @@
-import $axios from '~/utils/request'
+import request from '~/utils/request'
 
 export function login (data) {
-  return $axios.$post(
-    '/login',
+  return request({
+    url:'/login',
+    method:'post',
     data
-  )
+  })
 }
 
 export function tagList (params) {
-  return $axios.$get(
-    '/admin/tags',
+  return request({
+    url:'/admin/tags',
+    method:'get',
     params
-  )
+  })
 }
 
 export function addTag (data) {
-  return $axios.$post(
-    '/admin/tags',
+  return request({
+    url: '/admin/tags',
+    method:'post',
     data
-  )
+  })
 }
 
 export function updateTag (tagId, data) {
-  return $axios.$put(
-    '/admin/tags/' + tagId,
+  return request({
+    url:'/admin/tags/' + tagId,
+    method:'put',
     data
-  )
+  })
 }
 
 export function delTag (data) {
-  return $axios.$delete(
-    '/admin/tags',
-    data 
-  )
+  return request({
+    url:'/admin/tags',
+    method:'delete',
+    data
+  })
 }
 
 export function articleList (params) {
-  return $axios.$get(
-    '/admin/articles',
+  return request({
+    url: '/admin/articles',
+    method:'get',
     params
-  )
+  })
 }
 
 export function getArticle (articleId) {
-  return $axios.$get(
-    '/admin/articles/' + articleId
-  )
+  return request({
+    url:'/admin/articles/' + articleId,
+    method:'get'
+  })
 }
 
 export function addArticle (data) {
-  return $axios.$post(
-    '/admin/articles',
+  return request({
+    url:'/admin/articles',
+    method:'post',
     data
-  )
+  })
 }
 
 export function updateArticle (articleId, data) {
-  return $axios.$put(
-    '/admin/articles/' + articleId,
+  return request({
+    url:'/admin/articles/' + articleId,
+    method:'put',
     data
-  )
+  })
 }

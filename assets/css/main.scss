@@ -116,3 +116,43 @@ body {
 .el-table--group {
   border: 1px solid var(--border-color) !important;
 }
+
+.el-select-dropdown {
+  border-color: var(--border-active-color) !important;
+  background-color: var(--bg) !important;
+}
+.el-popper[x-placement^=bottom] .popper__arrow {
+      border-bottom-color: var(--border-active-color) !important;
+}
+.el-popper[x-placement^=bottom] .popper__arrow::after {
+  border-bottom-color: var(--bg) !important;
+}
+.el-select-dropdown__item.selected,
+.el-select-dropdown__item.hover {
+  color: var(--color-active) !important;
+  background-color: var(--bg-secondary) !important;
+}
+
+.tox-tinymce-aux {
+  width: auto !important;
+}
+// .tox .tox-menu{
+//   margin-left: -6px;
+//   background-color: var(--bg) !important;
+//   border-color: var(--border-color) !important;
+// }
+// .tox .tox-statusbar,
+// .tox .tox-collection--list .tox-collection__group {
+//   border-color: var(--border-color) !important;
+// }
+// .tox-statusbar__path-item,
+// .tox-statusbar__wordcount {
+//   color: var(--color) !important;
+// }
+// .tox .tox-statusbar {
+//   background-color: var(--bg) !important;
+// }
+// .tox .tox-collection--list .tox-collection__item--active,
+// .tox .tox-collection--list .tox-collection__item--enabled  {
+//   background-color: var(--bg-secondary) !important;
+// }

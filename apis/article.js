@@ -1,14 +1,16 @@
-import $axios from '~/utils/request'
+import request from '~/utils/request'
 
 export function getArticleList (params) {
-  return $axios.$get(
-    '/articles',
+  return request({
+    url:'/articles',
+    method:'get',
     params
-  )
+  })
 }
 
 export function getArticle (articleId) {
-  return $axios.$get(
-    '/articles/' + articleId
-  )
+  return request({
+    url:'/articles/' + articleId,
+    method:'get'
+  })
 }
