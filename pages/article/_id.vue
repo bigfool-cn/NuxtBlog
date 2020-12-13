@@ -18,43 +18,47 @@
       <div class="article-content" v-html="article.article_content">
       </div>
     </div>
-    <blog-eraser />
+    <blog-eraser/>
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import BlogEraser from '~/components/eraser/index.vue'
-import { getArticle } from '~/apis/article'
-export default {
-  name: 'ArticleDetail',
-  components: { BlogEraser },
-  async asyncData({ context, params }) {
-    const { article } = await getArticle(params.id).then(response => {
+  import BlogEraser from '~/components/eraser/index.vue'
+  import {getArticle} from '~/apis/article'
+
+  export default {
+    name: 'ArticleDetail',
+    components: {BlogEraser},
+    async asyncData({context, params}) {
+      const {article} = await getArticle(params.id).then(response => {
         if (response.code !== 200) {
-          return context.error({ statusCode: 404, message: '页面未找到或无数据' })
+          return context.error({statusCode: 404, message: '页面未找到或无数据'})
         }
-        return { article: response.data }
+        return {article: response.data}
       }).catch((error) => {
-        return context.error({ statusCode: 404, message: '页面未找到或无数据' })
+        return context.error({statusCode: 404, message: '页面未找到或无数据'})
       })
-    return { article }
-  },
-  head() {
-    return {
-      link:[
-        { rel: 'stylesheet', href: '/prism/prism.css' }
-      ],
-      script: [
-        { src: '/prism/prism.js' },
-        { src: '/prism/clipboard.min.js' }
-      ]
+      return {article}
+    },
+    head() {
+      return {
+        link: [
+          {rel: 'stylesheet', href: '/prism/prism.css'}
+        ],
+        script: [
+          {src: '/prism/prism.js'},
+          {src: '/prism/clipboard.min.js'}
+        ]
+      }
+    },
+    mounted() {
+      if (process.browser) {
+        window.onload = () => {
+          document.querySelectorAll("pre code").forEach(block => Prism.highlightElement(block));
+        }
+      }
     }
-  },
-  mounted() {
-    process.browser && document.querySelectorAll("pre code").forEach(block => Prism.highlightElement(block));
   }
-}
 </script>
 
 <style lang="scss" scoped>
@@ -63,15 +67,18 @@ export default {
     border-top: 1px solid var(--border-color);
     padding: 10px 25px;
   }
+
   .article-header {
     text-align: center;
     display: flex;
     flex-direction: column;
   }
+
   .article-title {
     color: var(--color);
     font-weight: bold;
   }
+
   .article-tools {
     display: flex;
     justify-content: center;
@@ -80,25 +87,39 @@ export default {
     font-size: 14px;
     line-height: 14px;
   }
+
   .article-tools {
-     span {
+    span {
       position: relative;
+
       &:nth-child(2) {
         padding: 0 20px;
       }
     }
   }
+
   .article-tag {
     span {
       padding: 2px;
+
       img {
         width: 17px;
         height: 15px;
       }
     }
   }
+
   .article-content {
-    padding: 12px 0;
+    padding: 15px 0 25px 0;
     color: var(--color);
+  }
+
+  ::v-deep .code-toolbar > .toolbar {
+    opacity: 1;
+  }
+
+  ::v-deep .toolbar button:hover {
+    cursor: pointer;
+    color: #bbbbbb !important;
   }
 </style>

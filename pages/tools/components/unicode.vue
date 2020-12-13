@@ -25,6 +25,7 @@
 </template>
 
 <script>
+  import {Message} from 'element-ui'
 export default {
   name: 'ToolsUnicode',
   data () {
@@ -38,14 +39,14 @@ export default {
       try {
         this.output = eval("'" + this.input + "'")
       } catch (e) {
-        this.$toast.error(e.toString())
+        Message.error('解码失败!' + e.toString())
       }
     },
     changeOutput () {
       try {
         this.input = escape(this.output).replace(/\%u/g, '\\u')
       } catch (e) {
-        this.$toast.error(e.toString())
+        Message.error('编码失败!' + e.toString())
       }
     }
   }
@@ -53,5 +54,5 @@ export default {
 </script>
 
 <style scoped>
-  
+
 </style>

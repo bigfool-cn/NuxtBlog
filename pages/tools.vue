@@ -1,18 +1,19 @@
 <template>
   <div>
     <div class="tools">
-      <tools-tags :tag="activeTag" @change="changeTag" />
+      <tools-tags :tag="activeTag" @change="changeTag"/>
       <div class="tools-comp">
-        <nuxt-child />
+        <nuxt-child/>
       </div>
     </div>
-    <blog-eraser />
+    <blog-eraser/>
   </div>
 </template>
 
 <script>
   import ToolsTags from '~/pages/tools/components/tags.vue'
   import BlogEraser from '~/components/eraser/index.vue'
+
   export default {
     name: 'Tools',
     components: {

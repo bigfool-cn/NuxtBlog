@@ -10,7 +10,7 @@
       @input="changeInput"
     />
     <div class="direction">
-      <svg-icon icon-class="direction" />
+      <svg-icon icon-class="direction"/>
     </div>
     <el-input
       v-model="output"
@@ -25,36 +25,34 @@
 </template>
 
 <script>
-export default{
-  name: 'ToolsBase64',
-  data () {
-    return {
-      input: '',
-      output: ''
-    }
-  },
-  methods: {
-    changeInput () {
-      const obj = document.querySelector('.input')
-      try {
-        obj.style.borderColor = '#856043'
-        this.output = window.atob(this.input)
-      } catch (e) {
-        obj.style.borderColor = 'red'
+  import {Message} from 'element-ui'
+  export default {
+    name: 'ToolsBase64',
+    data() {
+      return {
+        input: '',
+        output: ''
       }
     },
-    changeOutput () {
-      const obj = document.querySelector('.input')
-      try {
-        obj.style.borderColor = '#856043'
-        this.input = window.btoa(this.output)
-      } catch (e) {
-        console.log(e)
-        obj.style.borderColor = 'red'
+    methods: {
+      changeInput() {
+        try {
+          this.output = window.atob(this.input)
+        } catch (e) {
+          Message.error('解码失败!' + e.toString())
+          return
+        }
+      },
+      changeOutput() {
+        try {
+          this.input = window.btoa(this.output)
+        } catch (e) {
+          Message.error('编码码失败!' + e.toString())
+          return
+        }
       }
     }
   }
-}
 </script>
 
 <style scoped>

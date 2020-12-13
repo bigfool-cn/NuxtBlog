@@ -1,7 +1,7 @@
 <template>
   <div>
     <div ref="entry" class="articles">
-      <div v-if="!articles.length" class="empty-data">该分类暂无文章...</div>
+      <div v-if="!articles || !articles.length" class="empty-data">该分类暂无文章...</div>
       <nuxt-link v-for="(item,key) in articles" :key="key" :to="'/article/' + item.article_id" class="article-to">
         <div class="li-article">
           <div class="article-title">
@@ -19,41 +19,42 @@
         </div>
       </nuxt-link>
     </div>
-    <b-tag :tags="tags" @click="clickTag" />
-    <blog-eraser />
+    <b-tag :tags="tags" @click="clickTag"/>
+    <blog-eraser/>
   </div>
 </template>
 
 <script>
   import BlogEraser from '~/components/eraser/index.vue'
   import BTag from '~/components/btag/index.vue'
-  import { getArticleList } from '~/apis/article'
-  import { tagList } from '~/apis/tag'
+  import {getArticleList} from '~/apis/article'
+  import {tagList} from '~/apis/tag'
+  import {Message} from 'element-ui'
   export default {
     components: {
       BlogEraser,
       BTag
     },
-    async asyncData (context) {
+    async asyncData(context) {
       const [articlesItem, tags] = await Promise.all([
         getArticleList().then((response) => {
           if (response.code !== 200) {
-            return context.error({ statusCode: 404, message: '页面未找到或无数据' })
+            return context.error({statusCode: 404, message: '页面未找到或无数据'})
           }
           return {
             articles: response.data.articles,
             total: response.data.total
           }
         }).catch((error) => {
-          return context.error({ statusCode: 404, message: '页面未找到或无数据' })
+          return context.error({statusCode: 404, message: '页面未找到或无数据'})
         }),
         tagList().then(response => {
           if (response.code !== 200) {
-            return context.error({ statusCode: 404, message: '页面未找到或无数据' })
+            return context.error({statusCode: 404, message: '页面未找到或无数据'})
           }
           return response.data
         }).catch((error) => {
-          return context.error({ statusCode: 404, message: '页面未找到或无数据' })
+          return context.error({statusCode: 404, message: '页面未找到或无数据'})
         })
       ])
       return {
@@ -76,8 +77,16 @@
       window.addEventListener('scroll', this.handleScroll)
     },
     methods: {
-      clickTag(tag) {
-        console.log(tag)
+      clickTag(tagId) {
+        this.query.page = 1
+        this.query.tag_id = tagId
+        getArticleList(this.query).then((response) => {
+          if (response.code !== 200) {
+            return Message.error('加载数据失败')
+          }
+          this.articles = response.data.articles
+          this.total = response.data.total
+        })
       },
       handleScroll() {
         this.timer && clearTimeout(this.timer)
@@ -89,8 +98,7 @@
           const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
           const $entry = this.$refs.entry
           const clienHeight = $el.clientHeight
-          const style = window.getComputedStyle ? window.getComputedStyle($entry, null) : null || $entry
-            .currentStyle
+          const style = window.getComputedStyle ? window.getComputedStyle($entry, null) : null || $entry.currentStyle
           const containerHeight = ~~style.height.split('px')[0]
           // 滚动到一定高度，重新加载数据
           if (scrollTop + clienHeight > containerHeight - 50) {
@@ -98,7 +106,7 @@
               this.query.page = this.query.page + 1
               getArticleList(this.query).then((response) => {
                 if (response.code !== 200) {
-                  return this.$toast.error('加载数据失败')
+                  return Message.error('加载数据失败')
                 }
                 this.articles = this.articles.concat(response.data.articles)
                 this.total = response.data.total
@@ -182,14 +190,12 @@
     line-height: 14px;
   }
 
-  .article-tools {
-    span {
-      position: relative;
-      &:nth-child(2) {
-         padding: 0 20px;
-      }
+  .article-tools > span {
+    position: relative;
+    &:nth-child(2) {
+      padding: 0 20px;
     }
-  } 
+  }
 
   .article-tag {
     span {

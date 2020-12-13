@@ -1,42 +1,43 @@
 <template>
   <div>
-    <div v-if="!this.$store.state.settings.isMobile" class="eraser">
+    <div class="eraser">
       <div class="theme-item">
         <span class="theme-btn" title="明亮" @click="$colorMode.preference = 'light'">
-          <svg-icon icon-class="light" />
+          <svg-icon icon-class="light"/>
         </span>
         <span class="theme-btn" title="暗黑" @click="$colorMode.preference = 'dark'">
-          <svg-icon icon-class="dark" />
+          <svg-icon icon-class="dark"/>
         </span>
         <span class="theme-btn" title="深褐" @click="$colorMode.preference = 'sepia'">
-          <svg-icon icon-class="sepia" />
+          <svg-icon icon-class="sepia"/>
         </span>
       </div>
-      <div class="eraser-header">
-        <svg-icon icon-class="share" title="分享到QQ" @click="shareQQ" />
+      <div class="eraser-header"  title="分享到QQ" >
+        <svg-icon icon-class="share" @click="shareQQ"/>
       </div>
       <div class="eraser-body" title="返回顶部" @click="toTop">
-        <svg-icon icon-class="top" />
+        <svg-icon icon-class="top"/>
       </div>
-      <div class="eraser-footer" title="前往后台" @click="toLogin" />
+      <div class="eraser-footer" @click="toLogin"/>
     </div>
     <client-only>
-    <el-dialog v-drag-dialog :visible.sync="showDialog" title="进入后台" width="30%">
-      <div class="admin-login">
-        <el-input v-model="loginForm.username" placeholder="用户名..." />
-        <el-input v-model="loginForm.password" type="password" placeholder="密码..." />
-        <el-button type="button" @click="login">
-          登 录
-        </el-button>
-      </div>
-    </el-dialog>
+      <el-dialog v-drag-dialog :visible.sync="showDialog" title="进入后台" width="30%">
+        <div class="admin-login">
+          <el-input v-model="loginForm.username" placeholder="用户名..."/>
+          <el-input v-model="loginForm.password" type="password" placeholder="密码..."/>
+          <el-button type="button" @click="login">
+            登 录
+          </el-button>
+        </div>
+      </el-dialog>
     </client-only>
   </div>
 </template>
 
 <script>
-  import { login } from '~/apis/admin'
-  import { Message } from 'element-ui'
+  import {login} from '~/apis/admin'
+  import {Message} from 'element-ui'
+
   export default {
     name: 'Eraser',
     data() {
@@ -45,15 +46,6 @@
         loginForm: {
           username: '',
           password: ''
-        }
-      }
-    },
-    mounted() {
-      document.body.onresize = () => {
-        if (document.body.clientWidth < 1170) {
-          this.$store.dispatch('settings/setIsMobile', true)
-        } else {
-          this.$store.dispatch('settings/setIsMobile', false)
         }
       }
     },
@@ -73,10 +65,23 @@
         this.showDialog = true
       },
       toTop() {
-        document.documentElement.scrollTop = 0
-        document.body.scrollTop = 0
+        const timer = setInterval(() => {
+          if (document.documentElement.scrollTop > 100) {
+            document.documentElement.scrollTop -= 100
+          } else {
+            document.documentElement.scrollTop = 0
+          }
+          if (document.body.scrollTop > 100) {
+            document.body.scrollTop -= 100
+          } else {
+            document.body.scrollTop = 0
+          }
+          if (document.body.scrollTop === 0 && document.documentElement.scrollTop === document.body.scrollTop) {
+            clearInterval(timer)
+          }
+        },25 )
       },
-     login() {
+      login() {
         // 前台防君子
         if (this.$store.state.admin.limit > 5) {
           return Message.error('帐号已被限制')
@@ -97,7 +102,7 @@
             this.$store.dispatch('admin/inrLimit')
             return Message.error(response.message)
           }
-          this.$cookies.set('_token_',response.data)
+          this.$cookies.set('_token_', response.data)
           await this.$store.dispatch('admin/setToken', response.data)
           Message.success(response.message)
           this.$router.push({
@@ -128,6 +133,7 @@
     text-align: center;
     cursor: pointer;
     background-color: var(--bg-secondary);
+
     &:hover {
       background-color: var(--border-active-color);
     }

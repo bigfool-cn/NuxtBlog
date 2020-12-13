@@ -138,6 +138,9 @@ export default {
   methods: {
     getTagList () {
       tagList(this.query).then((response) => {
+        if (response.code !== 200) {
+          return Message.error(response.message)
+        }
         this.tagList = response.data
       })
     },

@@ -1,15 +1,15 @@
 <template>
   <div>
     <client-only>
-      <blog-json />
+      <blog-json/>
     </client-only>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'Tools'
-}
+  export default {
+    name: 'Tools'
+  }
 </script>
 
 <style scoped>

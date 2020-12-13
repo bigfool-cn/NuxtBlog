@@ -1,13 +1,12 @@
 html {
-  font-family:
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
+  font-family: 'Source Sans Pro',
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  Roboto,
+  'Helvetica Neue',
+  Arial,
+  sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -96,6 +95,25 @@ body {
   }
 }
 
+.admin-container {
+  margin: auto;
+  min-height: 100vh;
+  padding: 20px 0;
+  background: var(--bg);
+}
+
+.content-container {
+  padding: 20px 40px;
+}
+
+.serach-container {
+  padding-bottom: 20px;
+}
+
+.table-btn {
+  padding-bottom: 5px;
+}
+
 .el-checkbox__inner,
 .el-table,
 .el-table--border,
@@ -106,12 +124,14 @@ body {
   background-color: var(--bg) !important;
   border-color: var(--border-color) !important;
 }
+
 .el-table--border::after,
 .el-table--group::after,
 .el-table::before,
 .el-checkbox__inner {
-   background-color: var(--bg) !important; 
+  background-color: var(--bg) !important;
 }
+
 .el-table--border,
 .el-table--group {
   border: 1px solid var(--border-color) !important;
@@ -121,21 +141,32 @@ body {
   border-color: var(--border-active-color) !important;
   background-color: var(--bg) !important;
 }
+
 .el-popper[x-placement^=bottom] .popper__arrow {
-      border-bottom-color: var(--border-active-color) !important;
+  border-bottom-color: var(--border-active-color) !important;
 }
+
 .el-popper[x-placement^=bottom] .popper__arrow::after {
   border-bottom-color: var(--bg) !important;
 }
+
 .el-select-dropdown__item.selected,
 .el-select-dropdown__item.hover {
   color: var(--color-active) !important;
   background-color: var(--bg-secondary) !important;
 }
 
+.el-tag.el-tag--info {
+  color: var(--color) !important;
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--border-active-color) !important;
+}
+
+
 .tox-tinymce-aux {
   width: auto !important;
 }
+
 // .tox .tox-menu{
 //   margin-left: -6px;
 //   background-color: var(--bg) !important;

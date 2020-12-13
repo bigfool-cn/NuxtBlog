@@ -1,6 +1,5 @@
 const state = () => ({
   shareTitle: '代码敲得再六又怎么样',
-  isMobile: false,
   toolActiveTag: 'json',
   tags: {
     json: 'JSON格式器',
@@ -18,9 +17,6 @@ const mutations = {
   SET_TITLE (state,title) {
     state.shareTitle = title
   },
-  SET_ISMOBILE (state,flag) {
-    state.isMobile = flag
-  },
   SET_TOOLACTIVETIONTAG(state,tag) {
      state.toolActiveTag = tag
   }
@@ -29,9 +25,6 @@ const mutations = {
 const actions = {
   setShareTitle ({ commit }, title) {
     commit('SET_TITLE', title)
-  },
-  setIsMobile ({ commit }, flag) {
-    commit('SET_ISMOBILE', flag)
   },
   setToolActiveTag ({ commit }, tag) {
     commit('SET_TOOLACTIVETIONTAG', tag)

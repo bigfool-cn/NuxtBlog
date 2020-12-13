@@ -2,14 +2,14 @@
   <div class="content-container">
     <client-only>
       <div class="serach-container">
-        <el-input v-model="query.article_title" style="width: 300px" placeholder="文章标题" />
+        <el-input v-model="query.article_title" style="width: 300px" placeholder="文章标题"/>
         <el-select v-model="query.article_status" placeholder="文章状态">
-          <el-option label="全部" :value="-1" />
-          <el-option label="发布" :value="1" />
-          <el-option label="草稿" :value="0" />
+          <el-option label="全部" :value="-1"/>
+          <el-option label="发布" :value="1"/>
+          <el-option label="草稿" :value="0"/>
         </el-select>
         <el-select v-model="query.tag_id" placeholder="文章标签" style="width: 200px">
-          <el-option label="全部" :value="-1" />
+          <el-option label="全部" :value="-1"/>
           <el-option
             v-for="(item, index) in tags"
             :key="index"
@@ -17,7 +17,7 @@
             :value="item.tag_id"
           >
             <span style="float: left">{{ item.tag_name }}</span>
-            <img :src="item.tag_icon" style="float: right;width: 27px;height: 25px">
+            <img :src="item.tag_icon" style="float: right;width: 27px;height: 25px;margin-top: 4px">
           </el-option>
         </el-select>
         <el-button @click="handleSearch">
@@ -46,27 +46,27 @@
         </div>
 
         <el-table :data="articleList" border @selection-change="handleSelectionChange">
-          <el-table-column type="selection" width="55" align="center" />
-          <el-table-column label="名称" prop="article_title" :show-overflow-tooltip="true" />
-          <el-table-column label="标签" prop="tag_icon">
+          <el-table-column type="selection" width="55" align="center"/>
+          <el-table-column label="名称" prop="article_title" :show-overflow-tooltip="true"/>
+          <el-table-column label="标签" prop="tag_icon" width="120">
             <template slot-scope="scope">
               <span v-for="(tag,key) in scope.row.tags" :key="key" :title="tag.tag_name">
-                <img :src="tag.tag_icon" style="width:27px; height:25px" >
+                <img :src="tag.tag_icon" style="width:27px; height:25px">
               </span>
             </template>
           </el-table-column>
-          <el-table-column label="阅读量" prop="article_read" width="80" />
-          <el-table-column label="修改时间" align="center" prop="update_time">
+          <el-table-column label="阅读量" prop="article_read" width="100"/>
+          <el-table-column label="修改时间" align="center" prop="update_time" width="150">
             <template slot-scope="scope">
               <span>{{ scope.row.update_time | parseTime }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="创建时间" align="center" prop="create_time">
+          <el-table-column label="创建时间" align="center" prop="create_time" width="150">
             <template slot-scope="scope">
               <span>{{ scope.row.create_time | parseTime }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="180">
+          <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
             <template slot-scope="scope">
               <el-button
                 size="mini"
@@ -93,7 +93,8 @@
           background
           layout="prev, pager, next"
           :page-size="query.limit"
-          :total="total">
+          :total="total"
+          @current-change="toPage">
         </el-pagination>
       </div>
     </client-only>
@@ -101,72 +102,85 @@
 </template>
 
 <script>
-import { articleList, tagList } from '~/apis/admin'
+  import {articleList, delArticle, tagList} from '~/apis/admin'
+  import {Message} from 'element-ui'
 
-export default{
-  name: 'AdminArticle',
-  layout: 'admin',
-  data () {
-    return {
-      multiple: true,
-      selectIds: [],
-      total: 0,
-      query: {
-        page: 0,
-        limit: 20,
-        article_title: '',
-        article_status: -1,
-        tag_id: -1
-      },
-      tags: [],
-      articleList: []
-    }
-  },
-  head () {
-    return {
-      title: '文章 - 后台管理'
-    }
-  },
-  mounted () {
-    this.getArticleList()
-    this.getTagList()
-  },
-  methods: {
-    getArticleList () {
-      articleList(this.query).then((response) => {
-        if (response.code !== 200) {
-          return this.$toast.error(response.message)
-        }
-        this.articleList = response.data.articles
-        this.total = response.data.total
-      })
+  export default {
+    name: 'AdminArticle',
+    layout: 'admin',
+    data() {
+      return {
+        multiple: true,
+        selectIds: [],
+        total: 0,
+        query: {
+          page: 0,
+          limit: 20,
+          article_title: '',
+          article_status: -1,
+          tag_id: -1
+        },
+        tags: [],
+        articleList: []
+      }
     },
-    handleSearch () {
+    head() {
+      return {
+        title: '文章 - 后台管理'
+      }
+    },
+    mounted() {
       this.getArticleList()
+      this.getTagList()
     },
-    getTagList () {
-      tagList(this.query).then((response) => {
-        if (response.code !== 200) {
-          return this.$toast.error(response.message)
-        }
-        this.tags = response.data
-      })
-    },
-    handleSelectionChange (rows) {
-      this.selectIds = rows.map(item => item.article_id)
-      this.multiple = false
-    },
-    handleAdd () {
-      this.$router.push({ path: '/admin/article/add' })
-    },
-    handleUpdate (row) {
-      this.$router.push({ path: '/admin/article/' + row.article_id })
-    },
-    handleDelete (row) {
-      console.log(row)
+    methods: {
+      getArticleList() {
+        articleList(this.query).then((response) => {
+          if (response.code !== 200) {
+            return Message.error(response.message)
+          }
+          this.articleList = response.data.articles
+          this.total = response.data.total
+        })
+      },
+      handleSearch() {
+        this.query.page = 1
+        this.getArticleList()
+      },
+      getTagList() {
+        tagList(this.query).then((response) => {
+          if (response.code !== 200) {
+            return Message.error(response.message)
+          }
+          this.tags = response.data
+        })
+      },
+      handleSelectionChange(rows) {
+        this.selectIds = rows.map(item => item.article_id)
+        this.multiple = false
+      },
+      handleAdd() {
+        this.$router.push({path: '/admin/article/add'})
+      },
+      handleUpdate(row) {
+        this.$router.push({path: '/admin/article/' + row.article_id})
+      },
+      handleDelete(row) {
+        const ids = row.article_id ? [row.article_id] : this.selectIds
+        delArticle(ids).then((response) => {
+          if (response.code !== 200) {
+            return Message.error(response.message)
+          }
+          Message.success(response.message)
+          this.getArticleList()
+        })
+      },
+      toPage(page) {
+        this.query.page = page
+        this.getArticleList()
+      }
     }
   }
-}
 </script>
 
 <style scoped>
@@ -174,7 +188,20 @@ export default{
     margin-top: 15px;
     text-align: center;
   }
+
   button {
     width: 100px;
+  }
+
+  ::v-deep .el-pagination.is-background .btn-prev,
+  ::v-deep .el-pagination.is-background .btn-next,
+  ::v-deep .el-pagination.is-background .el-pager li {
+    color: var(--color);
+    background-color: var(--bg-secondary);
+  }
+
+  ::v-deep .el-pagination.is-background .el-pager li:not(.disabled).active{
+    color: var(--color-active);
+    background-color: var(--bg-secondary);
   }
 </style>

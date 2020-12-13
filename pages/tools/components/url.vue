@@ -10,7 +10,7 @@
       @input="changeInput"
     />
     <div class="direction">
-      <svg-icon icon-class="direction" />
+      <svg-icon icon-class="direction"/>
     </div>
     <el-input
       v-model="output"
@@ -25,25 +25,25 @@
 </template>
 
 <script>
-export default {
-  name: 'ToolsUrl',
-  data () {
-    return {
-      input: '',
-      output: ''
-    }
-  },
-  methods: {
-    changeInput () {
-      this.output = decodeURIComponent(this.input)
+  export default {
+    name: 'ToolsUrl',
+    data() {
+      return {
+        input: '',
+        output: ''
+      }
     },
-    changeOutput () {
-      this.input = encodeURIComponent(this.output)
+    methods: {
+      changeInput() {
+        this.output = decodeURIComponent(this.input)
+      },
+      changeOutput() {
+        this.input = encodeURIComponent(this.output)
+      }
     }
   }
-}
 </script>
 
 <style scoped>
-  
+
 </style>
