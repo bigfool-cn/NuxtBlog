@@ -1,5 +1,4 @@
 const state = () => ({
-  shareTitle: '代码敲得再六又怎么样',
   toolActiveTag: 'json',
   tags: {
     json: 'JSON格式器',
@@ -14,18 +13,12 @@ const state = () => ({
 })
 
 const mutations = {
-  SET_TITLE (state,title) {
-    state.shareTitle = title
-  },
   SET_TOOLACTIVETIONTAG(state,tag) {
      state.toolActiveTag = tag
   }
 }
 
 const actions = {
-  setShareTitle ({ commit }, title) {
-    commit('SET_TITLE', title)
-  },
   setToolActiveTag ({ commit }, tag) {
     commit('SET_TOOLACTIVETIONTAG', tag)
   }

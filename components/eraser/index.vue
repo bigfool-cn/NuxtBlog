@@ -2,13 +2,13 @@
   <div>
     <div class="eraser">
       <div class="theme-item">
-        <span class="theme-btn" title="明亮" @click="$colorMode.preference = 'light'">
+        <span class="theme-btn theme-light" title="明亮" @click="$colorMode.preference = 'light'">
           <svg-icon icon-class="light"/>
         </span>
-        <span class="theme-btn" title="暗黑" @click="$colorMode.preference = 'dark'">
+        <span class="theme-btn theme-dark" title="暗黑" @click="$colorMode.preference = 'dark'">
           <svg-icon icon-class="dark"/>
         </span>
-        <span class="theme-btn" title="深褐" @click="$colorMode.preference = 'sepia'">
+        <span class="theme-btn theme-sepia" title="深褐" @click="$colorMode.preference = 'sepia'">
           <svg-icon icon-class="sepia"/>
         </span>
       </div>
@@ -51,17 +51,18 @@
     },
     methods: {
       shareQQ() {
-
-        // window.open('https://connect.qq.com/widget/shareqq/index.html?url=https://www.bigfool.cn&title=打工人&summary=打工魂&desc=打工人上人&pics=http://img.doutula.com/production/uploads/image/2018/06/05/20180605165104_EnKBLo.jpg&sharesource=qzone')
+        const url = window.location.href
+        window.open(`http://connect.qq.com/widget/shareqq/index.html?url=${url}`)
       },
       toLogin() {
-        console.log(this.$store.state)
         const token = this.$store.state.admin.token
+        /** 
         if (token && token !== 'null' && token !== 'undefined') {
           this.$router.push({
             path: '/admin'
           })
         }
+        */
         this.showDialog = true
       },
       toTop() {
@@ -82,24 +83,25 @@
         },25 )
       },
       login() {
-        // 前台防君子
-        if (this.$store.state.admin.limit > 5) {
+        const limit = this.$cookies.get('_limit_') || 0
+        // 年轻人不讲武德 耗子尾汁
+        if (limit >= 5) {
           return Message.error('帐号已被限制')
         }
 
         if (!this.loginForm.username.trim()) {
-          this.$store.dispatch('admin/inrLimit')
+          this.setLimit(limit + 1)
           return Message.error('请输入用户名')
         }
 
         if (!this.loginForm.password.trim()) {
-          this.$store.dispatch('admin/inrLimit')
+          this.setLimit(limit + 1)
           return Message.error('请输入密码')
         }
 
         login(this.loginForm).then(async (response) => {
           if (response.code !== 200) {
-            this.$store.dispatch('admin/inrLimit')
+            this.setLimit(limit + 1)
             return Message.error(response.message)
           }
           this.$cookies.set('_token_', response.data)
@@ -109,6 +111,9 @@
             path: '/admin'
           })
         })
+      },
+      setLimit(limit) {
+         this.$cookies.set('_limit_',limit,{maxAge: 60 * 60 * 24 })
       }
     }
   }
@@ -134,9 +139,28 @@
     cursor: pointer;
     background-color: var(--bg-secondary);
 
-    &:hover {
-      background-color: var(--border-active-color);
+   
+  }
+
+  .theme-light:hover {
+    .svg-icon {
+      color: #243749;
+     }
+    background-color: #f3f5f4;
+  }
+
+  .theme-dark:hover {
+    .svg-icon {
+      color: #ebf4f1;
     }
+    background-color: #091a28;
+  }
+
+  .theme-sepia:hover {
+    .svg-icon {
+      color: #433422;
+    }
+    background-color: #f1e7d0;
   }
 
   .eraser {

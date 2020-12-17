@@ -1,6 +1,6 @@
 <template>
   <div class="admin-header">
-    <img src="~/assets/img/logo.png">
+    <img src="/logo.png">
     <ul>
       <nuxt-link v-for="(menu,key) in menus" :key="key" :to="menu.path"
                  :class="currentPath === menu.path ? 'menu active-menu': 'menu'">

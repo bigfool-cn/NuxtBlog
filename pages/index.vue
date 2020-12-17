@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div ref="entry" class="articles">
+    <div id="entry" class="articles">
       <div v-if="!articles || !articles.length" class="empty-data">该分类暂无文章...</div>
       <nuxt-link v-for="(item,key) in articles" :key="key" :to="'/article/' + item.article_id" class="article-to">
         <div class="li-article">
@@ -19,6 +19,7 @@
         </div>
       </nuxt-link>
     </div>
+    <div class="loading" v-if="loading"><svg-icon icon-class="loading" />加载中...</div>
     <b-tag :tags="tags" @click="clickTag"/>
     <blog-eraser/>
   </div>
@@ -31,6 +32,7 @@
   import {tagList} from '~/apis/tag'
   import {Message} from 'element-ui'
   export default {
+    name: 'Index',
     components: {
       BlogEraser,
       BTag
@@ -46,7 +48,8 @@
             total: response.data.total
           }
         }).catch((error) => {
-          return context.error({statusCode: 404, message: '页面未找到或无数据'})
+          console.log(error)
+          return context.error({statusCode: 500, message: '页面出错'})
         }),
         tagList().then(response => {
           if (response.code !== 200) {
@@ -54,7 +57,8 @@
           }
           return response.data
         }).catch((error) => {
-          return context.error({statusCode: 404, message: '页面未找到或无数据'})
+           console.log(error)
+          return context.error({statusCode: 500, message: '页面出错'})
         })
       ])
       return {
@@ -65,6 +69,7 @@
     },
     data() {
       return {
+        loading: false,
         query: {
           page: 1,
           limit: 20,
@@ -96,23 +101,27 @@
         return new Promise((resolve) => {
           const $el = document.documentElement
           const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-          const $entry = this.$refs.entry
-          const clienHeight = $el.clientHeight
-          const style = window.getComputedStyle ? window.getComputedStyle($entry, null) : null || $entry.currentStyle
-          const containerHeight = ~~style.height.split('px')[0]
-          // 滚动到一定高度，重新加载数据
-          if (scrollTop + clienHeight > containerHeight - 50) {
-            if (this.total / this.query.limit > this.query.page) {
-              this.query.page = this.query.page + 1
-              getArticleList(this.query).then((response) => {
-                if (response.code !== 200) {
-                  return Message.error('加载数据失败')
-                }
-                this.articles = this.articles.concat(response.data.articles)
-                this.total = response.data.total
-              })
+          const entry = document.getElementById('entry')
+          if (entry) {
+            const clienHeight = $el.clientHeight
+            const style = window.getComputedStyle ? window.getComputedStyle(entry, null) : null || entry.currentStyle
+            const containerHeight = ~~style.height.split('px')[0]
+            // 滚动到一定高度，重新加载数据
+            if (scrollTop + clienHeight > containerHeight - 50) {
+              if (this.total / this.query.limit > this.query.page) {
+                this.query.page = this.query.page + 1
+                this.loading = true
+                getArticleList(this.query).then((response) => {
+                  this.loading = false
+                  if (response.code !== 200) {
+                    return Message.error('加载数据失败')
+                  }
+                  this.articles = this.articles.concat(response.data.articles)
+                  this.total = response.data.total
+                })
+              }
+              resolve()
             }
-            resolve()
           }
         })
       }
@@ -204,6 +213,17 @@
         width: 17px;
         height: 15px;
       }
+    }
+  }
+
+  .loading {
+    padding: 10px 0;
+    text-align: center;
+    color: var(--color);
+    .svg-icon {
+      animation: turn 3s linear infinite;
+      color: var(--color);
+      margin-right: 8px;
     }
   }
 

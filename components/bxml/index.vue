@@ -18,7 +18,7 @@
   import {Message} from 'element-ui'
 
   export default {
-    name: 'BXml',
+    name: 'BlogXml',
     data() {
       return {
         code: '',

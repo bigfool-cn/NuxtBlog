@@ -3,7 +3,7 @@
     <div class="article">
       <div class="article-header">
         <div class="article-title">
-          <h2>{{ article.article_title }}</h2>
+          <h3>{{ article.article_title }}</h3>
         </div>
         <div class="article-tools">
           <span class="article-tag">
@@ -18,17 +18,19 @@
       <div class="article-content" v-html="article.article_content">
       </div>
     </div>
+    <blog-back/>
     <blog-eraser/>
   </div>
 </template>
 
 <script>
   import BlogEraser from '~/components/eraser/index.vue'
+  import BlogBack from '~/components/back/index.vue'
   import {getArticle} from '~/apis/article'
 
   export default {
     name: 'ArticleDetail',
-    components: {BlogEraser},
+    components: {BlogEraser, BlogBack},
     async asyncData({context, params}) {
       const {article} = await getArticle(params.id).then(response => {
         if (response.code !== 200) {
@@ -36,12 +38,17 @@
         }
         return {article: response.data}
       }).catch((error) => {
-        return context.error({statusCode: 404, message: '页面未找到或无数据'})
+         console.log(error)
+        return context.error({statusCode: 500, message: '页面出错'})
       })
       return {article}
     },
     head() {
       return {
+        meta: [
+          { hid: 'keywords', name: "keywords", content: this.article.article_title + ' ' + this.article.article_desc },
+          { hid: 'description', name: 'description', content: this.article.article_title }
+        ],
         link: [
           {rel: 'stylesheet', href: '/prism/prism.css'}
         ],
@@ -52,10 +59,13 @@
       }
     },
     mounted() {
-      if (process.browser) {
-        window.onload = () => {
-          document.querySelectorAll("pre code").forEach(block => Prism.highlightElement(block));
-        }
+      window.onload = () => {
+        document.querySelectorAll("pre code").forEach(block => Prism.highlightElement(block))
+      }
+    },
+    methods: {
+      goBack() {
+        window.history.back(-1)
       }
     }
   }
@@ -88,13 +98,11 @@
     line-height: 14px;
   }
 
-  .article-tools {
-    span {
-      position: relative;
+  .article-tools > span {
+    position: relative;
 
-      &:nth-child(2) {
-        padding: 0 20px;
-      }
+    &:nth-child(2) {
+      padding: 0 20px;
     }
   }
 

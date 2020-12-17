@@ -4,6 +4,9 @@
       <li v-for="(item,key) in tags" :key="key" @click="clickTag(key)">
         <span :class="activeTag === key ? 'active' : ''">{{ item }}</span>
       </li>
+      <li @click="openUrl">
+        <span>Postwoman</span>
+      </li>
     </ul>
   </div>
 </template>
@@ -28,6 +31,9 @@
       clickTag(tag) {
         this.$store.dispatch('settings/setToolActiveTag', tag)
         this.$router.push({path: '/tools/' + tag})
+      },
+      openUrl() {
+        window.open('https://hoppscotch.io/cn')
       }
     }
   }

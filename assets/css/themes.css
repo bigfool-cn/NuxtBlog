@@ -9,7 +9,7 @@
   --border-color: #dddddd;
   --border-active-color: #cecece;
   --pencil-bg-color: #d7b182;
-  --pencil-border-top-color:  #dcb685;
+  --pencil-border-top-color: #dcb685;
   --pencil-border-bottom-color: #cda675;
 }
 
@@ -24,8 +24,8 @@
   --border-color: #0d2538;
   --border-active-color: #2a4f6b;
   --pencil-bg-color: #0b2030;
-  --pencil-border-top-color:  #0f2335;
-  --pencil-border-bottom-color:#091a28;
+  --pencil-border-top-color: #0f2335;
+  --pencil-border-bottom-color: #091a28;
 }
 
 .sepia {
@@ -39,6 +39,8 @@
   --border-color: #ded0bf;
   --border-active-color: #dac4a9;
   --pencil-bg-color: #d7b182;
-  --pencil-border-top-color:  #dcb685;
+  --pencil-border-top-color: #dcb685;
   --pencil-border-bottom-color: #cda675;
 }
+
+
