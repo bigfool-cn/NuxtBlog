@@ -8,6 +8,23 @@ export function login(data) {
   })
 }
 
+
+export function vistorList(params) {
+  return request({
+    url: '/admin/vistors',
+    method: 'get',
+    params
+  })
+}
+
+export function delVistor(data) {
+  return request({
+    url: '/admin/vistors',
+    method: 'delete',
+    data
+  })
+}
+
 export function tagList(params) {
   return request({
     url: '/admin/tags',

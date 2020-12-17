@@ -12,7 +12,8 @@ import {
   Option,
   Dialog,
   Pagination,
-  Message
+  Message,
+  DatePicker
 } from 'element-ui'
 
 const components = [
@@ -26,7 +27,8 @@ const components = [
   Option,
   Dialog,
   Pagination,
-  Message
+  Message,
+  DatePicker
 ];
 
 const Element = {

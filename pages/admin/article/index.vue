@@ -91,7 +91,7 @@
       <div class="pagination" v-if="total / query.limit > 1">
         <el-pagination
           background
-          layout="prev, pager, next"
+          layout="total, prev, pager, next"
           :page-size="query.limit"
           :total="total"
           @current-change="toPage">

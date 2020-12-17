@@ -2,7 +2,7 @@ import axios from 'axios'
 import Vue from 'vue'
 // create an axios instance
 const service = axios.create({
-  baseURL: 'https://www.bigfool.cn/api', // url = base url + request url
+  baseURL: 'https://www.bigfool.cn/api', // 'http://127.0.0.1:3003'
   timeout: 5000 // request timeout
 })
 

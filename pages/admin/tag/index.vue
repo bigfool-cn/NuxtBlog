@@ -119,12 +119,7 @@ export default {
           { required: true, message: '名称不能为空', trigger: 'blur' }
         ]
       },
-      tagList: [
-        {
-          tag_id: 1,
-          tag_name: 'haha'
-        }
-      ]
+      tagList: []
     }
   },
   head () {
@@ -170,7 +165,10 @@ export default {
     handleDelete (row) {
       const ids = row.tag_id ? [row.tag_id] : this.selectIds
       delTag(ids).then((response) => {
-        Message.error(response.message)
+        if (response.code !== 200) {
+          return Message.error(response.message)
+        }
+        Message.success(response.message)
         this.getTagList()
       })
     },
