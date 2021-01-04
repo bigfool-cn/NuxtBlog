@@ -1,9 +1,9 @@
 import axios from 'axios'
-import Vue from 'vue'
+
 // create an axios instance
 const service = axios.create({
   baseURL: 'https://www.bigfool.cn/api', // 'http://127.0.0.1:3003'
-  timeout: 5000 // request timeout
+  timeout: 15000 // request timeout
 })
 
 // request interceptor

@@ -51,6 +51,7 @@
     methods: {
       async logout() {
         await this.$store.dispatch('admin/logout')
+        this.$cookies.remove('_token_')
         this.$router.replace({path: '/'})
       }
     }

@@ -24,7 +24,7 @@
       <el-dialog v-drag-dialog :visible.sync="showDialog" title="进入后台" width="30%">
         <div class="admin-login">
           <el-input v-model="loginForm.username" placeholder="用户名..."/>
-          <el-input v-model="loginForm.password" type="password" placeholder="密码..."/>
+          <el-input v-model="loginForm.password" type="password" placeholder="密码..." @keyup.enter.native="login"/>
           <el-button type="button" @click="login">
             登 录
           </el-button>
@@ -80,7 +80,7 @@
           if (document.body.scrollTop === 0 && document.documentElement.scrollTop === document.body.scrollTop) {
             clearInterval(timer)
           }
-        },25 )
+        },25)
       },
       login() {
         const limit = this.$cookies.get('_limit_') || 0
@@ -113,7 +113,7 @@
         })
       },
       setLimit(limit) {
-         this.$cookies.set('_limit_',limit,{maxAge: 60 * 60 * 24 })
+         this.$cookies.set('_limit_',limit,{maxAge: 60 * 60 * 8})
       }
     }
   }

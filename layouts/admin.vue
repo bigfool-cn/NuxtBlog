@@ -7,7 +7,6 @@
 
 <script>
   import AHeader from '~/layouts/components/aheader.vue'
-
   export default {
     name: 'Admin',
     components: {AHeader}
