@@ -37,7 +37,7 @@
     methods: {
       changeInput() {
         try {
-          this.output = window.atob(this.input)
+          this.output = decodeURIComponent(escape(window.atob(this.input)))
         } catch (e) {
           Message.error('解码失败!' + e.toString())
           return
@@ -45,7 +45,7 @@
       },
       changeOutput() {
         try {
-          this.input = window.btoa(this.output)
+          this.input = window.btoa(unescape(encodeURIComponent(this.output)))
         } catch (e) {
           Message.error('编码码失败!' + e.toString())
           return

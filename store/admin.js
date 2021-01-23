@@ -1,22 +1,17 @@
 
-
 const state = () => ({
   token: '',
-  limit: 0 
 })
 
 const mutations = {
-  INR_LIMIT (state) {
-    state.limit += 1
-  },
   SET_TOKEN (state,token) {
     state.token = token
   }
 }
 
 const actions = {
-  inrLimit ({ commit }) {
-    commit('INR_LIMIT')
+  inrLimit ({ commit }, limit = 1) {
+    commit('INR_LIMIT', limit)
   },
 
   setToken ({ commit }, token) {

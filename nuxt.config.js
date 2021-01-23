@@ -2,11 +2,12 @@ const { resolve } = require('path')
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'NuxtBlog',
+    title: '代码写得再六又怎么样...',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      { hid: 'keywords', name: "keywords", content: "博客 IT博客 技术博客 程序员博客 程序员技术 技术文章  在线工具 PHP Go MySQL Vue JavaScript Css Linux" },
+      { hid: 'description', name: 'description', content: '代码敲得再六又怎么样, 连心爱的人都留不住.' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }

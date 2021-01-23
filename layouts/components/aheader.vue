@@ -1,6 +1,6 @@
 <template>
   <div class="admin-header">
-    <img src="~/assets/img/logo.png">
+    <img src="/logo.png">
     <ul>
       <nuxt-link v-for="(menu,key) in menus" :key="key" :to="menu.path"
                  :class="currentPath === menu.path ? 'menu active-menu': 'menu'">
@@ -51,6 +51,7 @@
     methods: {
       async logout() {
         await this.$store.dispatch('admin/logout')
+        this.$cookies.remove('_token_')
         this.$router.replace({path: '/'})
       }
     }

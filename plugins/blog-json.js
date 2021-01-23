@@ -1,4 +1,9 @@
 import Vue from 'vue'
-import BlogJson from '~/components/bjson'
+import JsonComponent from '~/components/bjson/index.vue'
 
+const BlogJson = {
+  install (Vue) {
+    Vue.component('BlogJson', JsonComponent)
+  }
+}
 Vue.use(BlogJson)

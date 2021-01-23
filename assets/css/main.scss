@@ -1,12 +1,12 @@
 html {
   font-family: 'Source Sans Pro',
-  -apple-system,
-  BlinkMacSystemFont,
-  'Segoe UI',
-  Roboto,
-  'Helvetica Neue',
-  Arial,
-  sans-serif;
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -20,12 +20,28 @@ html {
 *::before,
 *::after {
   box-sizing: border-box;
-  margin: 0;
 }
 
 html,
 body {
   background: var(--bg);
+  margin: 0;
+}
+
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: var(--bg);
+}
+
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px var(--border-active-color);
+  -webkit-box-shadow: inset 0 0 6px var(--border-active-color);
+  background-color: var(--border-active-color);
 }
 
 .container {
@@ -114,6 +130,38 @@ body {
   padding-bottom: 5px;
 }
 
+.el-picker-panel,
+.el-picker-panel__footer {
+  background-color: var(--bg) !important;
+  color: var(--color) !important;
+  border-color: var(--border-active-color) !important;
+}
+.el-date-range-picker__content.is-left,
+.el-date-range-picker__time-header {
+  border-color: var(--border-active-color) !important;
+}
+.el-picker-panel__icon-btn,
+.el-date-range-picker__time-header>.el-icon-arrow-right,
+.el-range-separator {
+  color: var(--color) !important;
+}
+.el-picker-panel__footer > button {
+  width: 100px;
+}
+.el-date-table th {
+  border-color: var(--border-active-color) !important;
+  color: var(--color) !important;
+}
+.el-date-table td.start-date span,
+.el-date-table td.end-date span {
+  background-color: var(--border-active-color) !important;
+}
+
+.el-date-table td.in-range div, 
+.el-date-table td.in-range div:hover {
+  background-color: var(--bg-secondary) !important;
+}
+
 .el-checkbox__inner,
 .el-table,
 .el-table--border,
@@ -187,3 +235,26 @@ body {
 // .tox .tox-collection--list .tox-collection__item--enabled  {
 //   background-color: var(--bg-secondary) !important;
 // }
+
+
+@keyframes turn {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  25% {
+    -webkit-transform: rotate(90deg);
+  }
+
+  50% {
+    -webkit-transform: rotate(180deg);
+  }
+
+  75% {
+    -webkit-transform: rotate(270deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}

@@ -9,7 +9,7 @@
   import {Message} from 'element-ui'
 
   export default {
-    name: 'BJson',
+    name: 'BlogJson',
     components: {
       VueJsonEditor
     },
