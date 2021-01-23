@@ -27,3 +27,9 @@ npm run build
 &nbsp;&nbsp;部署在服务器上可以通过pm2跑在宿主机上，也可以通过根目录下的Dockerfile构建项目镜像。
 
 PS:目前在线示例的客户端和服务端均跑在项目提供Dockerfile构建的镜像的容器中。
+
+## License
+
+[MIT](https://github.com/bigfool-cn/NuxtBlog/blob/master/LICENSE)
+
+Copyright (c) 2021-present bigfool-cn
