@@ -3,7 +3,7 @@ import Vue from 'vue'
 // create an axios instance
 const service = axios.create({
   baseURL: 'http://127.0.0.1:3003', // url = base url + request url
-  timeout: 5000 // request timeout
+  timeout: 15000 // request timeout
 })
 
 // request interceptor
