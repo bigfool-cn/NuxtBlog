@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-input type="textarea" v-model="slat" rows="3" placeholder="密钥..." @input="generateMd5"/>
-    <el-input type="textarea" v-model="content" rows="15" placeholder="主体内容..." @input="generateMd5"/>
+    <el-input type="textarea" v-model="slat" rows="3" placeholder="密钥..." spellcheck="false" @input="generateMd5"/>
+    <el-input type="textarea" v-model="content" rows="15" placeholder="主体内容..." spellcheck="false" @input="generateMd5"/>
     <ul>
       <li>32位(小写): <span>{{ md5Val }}</span></li>
       <li>32位(大写): <span>{{ md5ValUp }}</span></li>

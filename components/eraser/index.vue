@@ -18,52 +18,20 @@
       <div class="eraser-body" title="返回顶部" @click="toTop">
         <svg-icon icon-class="top"/>
       </div>
-      <div class="eraser-footer" @click="toLogin"/>
+      <div class="eraser-footer" title="在线工具" @click="toTools">
+        <svg-icon icon-class="tools" class-name="tools-turn"/>
+      </div>
     </div>
-    <client-only>
-      <el-dialog v-drag-dialog :visible.sync="showDialog" title="进入后台" width="30%">
-        <div class="admin-login">
-          <el-input v-model="loginForm.username" placeholder="用户名..."/>
-          <el-input v-model="loginForm.password" type="password" placeholder="密码..." @keyup.enter.native="login"/>
-          <el-button type="button" @click="login">
-            登 录
-          </el-button>
-        </div>
-      </el-dialog>
-    </client-only>
   </div>
 </template>
 
 <script>
-  import {login} from '~/apis/admin'
-  import {Message} from 'element-ui'
-
   export default {
     name: 'Eraser',
-    data() {
-      return {
-        showDialog: false,
-        loginForm: {
-          username: '',
-          password: ''
-        }
-      }
-    },
     methods: {
       shareQQ() {
         const url = window.location.href
         window.open(`http://connect.qq.com/widget/shareqq/index.html?url=${url}`)
-      },
-      toLogin() {
-        const token = this.$store.state.admin.token
-        /** 
-        if (token && token !== 'null' && token !== 'undefined') {
-          this.$router.push({
-            path: '/admin'
-          })
-        }
-        */
-        this.showDialog = true
       },
       toTop() {
         const timer = setInterval(() => {
@@ -82,38 +50,8 @@
           }
         },25)
       },
-      login() {
-        const limit = this.$cookies.get('_limit_') || 0
-        // 年轻人不讲武德 耗子尾汁
-        if (limit >= 5) {
-          return Message.error('帐号已被限制')
-        }
-
-        if (!this.loginForm.username.trim()) {
-          this.setLimit(limit + 1)
-          return Message.error('请输入用户名')
-        }
-
-        if (!this.loginForm.password.trim()) {
-          this.setLimit(limit + 1)
-          return Message.error('请输入密码')
-        }
-
-        login(this.loginForm).then(async (response) => {
-          if (response.code !== 200) {
-            this.setLimit(limit + 1)
-            return Message.error(response.message)
-          }
-          this.$cookies.set('_token_', response.data)
-          await this.$store.dispatch('admin/setToken', response.data)
-          Message.success(response.message)
-          this.$router.push({
-            path: '/admin'
-          })
-        })
-      },
-      setLimit(limit) {
-         this.$cookies.set('_limit_',limit,{maxAge: 60 * 60 * 8})
+      toTools() {
+        this.$router.push({path: '/tools'})
       }
     }
   }
@@ -139,7 +77,7 @@
     cursor: pointer;
     background-color: var(--bg-secondary);
 
-   
+
   }
 
   .theme-light:hover {
@@ -202,8 +140,8 @@
     }
   }
 
-  .el-input {
-    margin-bottom: 15px;
+  .tools-turn {
+    animation: turn 3s linear infinite;
   }
 
 </style>

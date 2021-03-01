@@ -2,7 +2,7 @@ const { resolve } = require('path')
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: '代码写得再六又怎么样...',
+    title: '一只小开发仔...',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },

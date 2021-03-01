@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-input type="textarea" id="regex-context" v-model="regexContent" rows="10" placeholder="待匹配内容..."/>
-    <el-input type="textarea" id="regex" v-model="regex" rows="2" placeholder="正则表达式..."/>
+    <el-input type="textarea" id="regex-context" v-model="regexContent" rows="10" placeholder="待匹配内容..." spellcheck="false"/>
+    <el-input type="textarea" id="regex" v-model="regex" rows="2" placeholder="正则表达式..." spellcheck="false"/>
     <el-button type="button" @click="handleMatch">匹 配</el-button>
     <el-input type="textarea" id="regex-result" v-model="regexResult" rows="10" placeholder="匹配结果..."/>
   </div>
