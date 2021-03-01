@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: 'https://www.bigfool.cn/api', // 'http://127.0.0.1:3003'
+  baseURL: 'http://127.0.0.1:3003', // url = base url + request url
   timeout: 15000 // request timeout
 })
 
