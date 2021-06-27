@@ -10,6 +10,8 @@
     <tools-img-base64 v-if="activeTag === 'img_base64'"/>
     <tools-md5 v-if="activeTag === 'md5'"/>
     <tools-regex v-if="activeTag === 'regex'"/>
+    <tools-jwt v-if="activeTag === 'jwt'"/>
+    <tool-datetime v-if="activeTag === 'datetime'"/>
   </div>
 </template>
 
@@ -20,10 +22,11 @@
   import ToolsImgBase64 from './components/imgBase64.vue'
   import ToolsMd5 from './components/md5.vue'
   import ToolsRegex from './components/regex.vue'
-
+  import ToolsJwt from './components/jwt.vue'
+  import ToolDatetime from './components/datetime'
   export default {
     name: 'Tool',
-    components: {ToolsUrl, ToolsBase64, ToolsUnicode, ToolsImgBase64, ToolsMd5, ToolsRegex},
+    components: {ToolsUrl, ToolsBase64, ToolsUnicode, ToolsImgBase64, ToolsMd5, ToolsRegex, ToolsJwt, ToolDatetime},
     computed: {
       activeTag() {
         return this.$store.state.settings.toolActiveTag

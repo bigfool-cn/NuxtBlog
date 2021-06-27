@@ -13,6 +13,7 @@
     "axios": "^0.21.0",
     "cookie-universal-nuxt": "^2.1.4",
     "core-js": "^3.6.5",
+    "dayjs": "^1.10.5",
     "element-ui": "^2.13.2",
     "eslint": "^7.15.0",
     "formattor": "0.0.2",
