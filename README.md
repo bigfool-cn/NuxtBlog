@@ -10,11 +10,11 @@
 ### 使用
 > 服务端
 
-&nbsp;&nbsp;首先将server_api目录下nuxt-blog.sql文件导入到自己的MySQL数据库，作者用的数据库版本为5.7。
-然后需要修改server_api目录下的/configs/config.yaml配置文件的配置值，登录账号密码(username和pwd)、日志存储路径(logpath)、Redsi缓存配置cache和
+&nbsp;&nbsp;首先将nuxt-blog-api目录下nuxt-blog.sql文件导入到自己的MySQL数据库，作者用的数据库版本为5.7。
+然后需要修改nuxt-blog-api目录下的/configs/config.yaml配置文件的配置值，登录账号密码(username和pwd)、日志存储路径(logpath)、Redsi缓存配置cache和
 MySQL数据库配置db。
 
-&nbsp;&nbsp;server_api目录下还提供了Dcokerfile，可以通过该Dockerfile构建项目镜像。
+&nbsp;&nbsp;nuxt-blog-api目录下还提供了Dcokerfile，可以通过该Dockerfile构建项目镜像。
 
 >客户端
 

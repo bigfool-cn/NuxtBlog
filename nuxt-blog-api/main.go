@@ -1,12 +1,11 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	"log"
-	"nuxt-blog-api/configs"
-	"nuxt-blog-api/routers"
-	"nuxt-blog-api/utils"
-	"strconv"
+  "github.com/gin-gonic/gin"
+  "log"
+  "nuxt-blog-api/configs"
+  "nuxt-blog-api/routers"
+  "strconv"
 )
 
 func main()  {

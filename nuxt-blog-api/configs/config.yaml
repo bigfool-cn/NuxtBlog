@@ -7,10 +7,10 @@ adminuser:
   username: admin
   pwd: 0673668a5ebdf40526bc8611a7223839
 cache:
-    host: 172.17.58.213
-    pwd: 123456
-    port: 6379
-    select: 0
+  host: 172.17.58.213
+  pwd: 123456
+  port: 6379
+  select: 0
 db:
   database: nuxt-blog
   dbtype: mysql
@@ -18,4 +18,3 @@ db:
   port: 3306
   user: root
   pwd: 123456
-

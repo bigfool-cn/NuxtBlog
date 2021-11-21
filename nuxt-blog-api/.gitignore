@@ -1,0 +1,4 @@
+.idea
+configs/config.yaml
+nuxt-blog-api.*
+main

@@ -88,3 +88,5 @@ sw.*
 
 # Vim swap files
 *.swp
+
+nuxt-blog-api/configs/config.yaml

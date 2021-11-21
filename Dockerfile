@@ -1,4 +1,4 @@
-FROM alpine AS builder
+FROM alpine:3.10 AS builder
 
 RUN mkdir -p /nuxt-blog
 
@@ -15,7 +15,7 @@ RUN npm config set registry=https://registry.npm.taobao.org
 RUN npm install --production
 
 
-FROM alpine
+FROM alpine:3.10
 
 # MAINTAINER
 LABEL name="nuxt-blog"

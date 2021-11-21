@@ -3,7 +3,7 @@
     <div class="pencil">
       <span class="barrel" @click="toIndex">
         <div class="header">
-          <span>一只小开发仔...</span>
+          <span @mouseenter="mouseEnter" @mouseleave="mouseLeave">your code is great</span>
         </div>
       </span>
       <span class="taper" @click="toLogin"/>
@@ -19,6 +19,9 @@
         </div>
       </el-dialog>
     </client-only>
+    <div class="eggs">
+      <img src="/coding.png">
+    </div>
   </div>
 </template>
 <script>
@@ -28,6 +31,7 @@
     name: 'BHeader',
     data() {
       return {
+        timer: null,
         showDialog: false,
         loginForm: {
           username: '',
@@ -36,6 +40,24 @@
       }
     },
     methods: {
+      mouseEnter() {
+        if (this.timer) {
+          document.getElementsByClassName('eggs')[0].setAttribute('class', 'eggs')
+          document.getElementsByClassName('eggs')[0].style.display = 'none'
+          clearTimeout(this.timer)
+        }
+        this.timer = setTimeout(() => {
+          document.getElementsByClassName('eggs')[0].style.display = 'block'
+        },2000)
+      },
+      mouseLeave() {
+        clearTimeout(this.timer)
+        document.getElementsByClassName('eggs')[0].setAttribute('class', 'eggs eggs-op')
+        this.timer = setTimeout(() => {
+          document.getElementsByClassName('eggs')[0].setAttribute('class', 'eggs')
+          document.getElementsByClassName('eggs')[0].style.display = 'none'
+        },2000)
+      },
       toIndex() {
         this.$router.push({path: '/'})
       },
@@ -88,6 +110,22 @@
 
 </script>
 <style lang="scss" scoped>
+  .eggs-op{
+    opacity: 0;
+    transition: 2s;
+  }
+  .eggs {
+    display: none;
+    position: absolute;
+    z-index: 9999;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    img {
+      border-radius: 30%;
+    }
+  }
   .pencil {
     margin: auto;
     display: flex;
