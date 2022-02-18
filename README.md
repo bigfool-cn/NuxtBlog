@@ -28,6 +28,9 @@ npm run build
 
 PS:目前在线示例的客户端和服务端均跑在项目提供Dockerfile构建的镜像的容器中。
 
+### Support 
+[JetBrains](https://www.jetbrains.com/shop/eform/opensource) 
+
 ## License
 
 [MIT](https://github.com/bigfool-cn/NuxtBlog/blob/master/LICENSE)
